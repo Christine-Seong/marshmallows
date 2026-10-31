@@ -121,7 +121,7 @@ h1, h2, h3, p { margin: 0; }
 .invite { flex: none; display: flex; flex-direction: column; align-items: center; gap: 24px; padding-top: 28px; text-align: center; }
 .lens { position: relative; width: min(68cqw, 280px); aspect-ratio: 1; }
 .lens-glass { position: absolute; inset: 0; border-radius: 50%; overflow: hidden; isolation: isolate; box-shadow: 0 0 0 8px rgba(255,255,255,.55), 0 24px 50px rgba(25,71,63,.16); }
-.feel-map { position: absolute; z-index: -1; left: 0; top: 0; width: 220%; height: 220%; background: url(assets/birdseye.jpg) center / cover; animation: roam 40s ease-in-out infinite; will-change: transform; }
+.feel-map { position: absolute; z-index: -1; left: 0; top: 0; width: 220%; height: 220%; background: url(assets/map-bg.jpg) center / cover; animation: roam 40s ease-in-out infinite; will-change: transform; }
 .lens-glass::after { content: ""; position: absolute; inset: 0; border-radius: 50%; background: radial-gradient(circle at 35% 30%, rgba(255,255,255,.22), rgba(255,255,255,0) 45%), radial-gradient(circle, rgba(12,36,30,0) 60%, rgba(12,36,30,.18)); }
 .lens::before { content: ""; position: absolute; inset: -14px; border-radius: 50%; border: 1px solid rgba(27,97,81,.18); animation: breathe 8s ease-in-out infinite; }
 .lens::after { content: ""; position: absolute; inset: -28px; border-radius: 50%; border: 1px solid rgba(27,97,81,.09); animation: breathe 8s ease-in-out -1.2s infinite; }
@@ -145,7 +145,7 @@ h1, h2, h3, p { margin: 0; }
 .lens-glass::after { border-radius: 0 !important; background: radial-gradient(circle, rgba(12,36,30,0) 55%, rgba(12,36,30,.16)) !important; }
 .lens::before, .lens::after { content: none !important; }
 .lens { filter: drop-shadow(0 14px 22px rgba(25,71,63,.22)); }
-.lens-paper { position: absolute; inset: -14px; background: url(assets/paper.webp) center / 100% 100% no-repeat; transform: rotate(-2.5deg); }
+.lens-paper { position: absolute; inset: -6px; background: url(assets/paper.webp) center / 100% 100% no-repeat; transform: rotate(-2.5deg); }
 .lens-glass { -webkit-mask: url(assets/paper.webp) center / 100% 100% no-repeat; mask: url(assets/paper.webp) center / 100% 100% no-repeat; }
 /* ---------- Map ---------- */
 #map .scrim-top { z-index: 1; height: 190px; }
