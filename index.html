@@ -145,7 +145,8 @@ h1, h2, h3, p { margin: 0; }
 .lens-glass::after { border-radius: 0 !important; background: radial-gradient(circle, rgba(12,36,30,0) 55%, rgba(12,36,30,.16)) !important; }
 .lens::before, .lens::after { content: none !important; }
 .lens { filter: drop-shadow(0 14px 22px rgba(25,71,63,.22)); }
-.lens-paper { position: absolute; inset: -12px; background: #f1eee3 url(assets/paper.webp) center / 140% 140% no-repeat; transform: rotate(-2.5deg); }
+.lens-paper { position: absolute; inset: -14px; background: url(assets/paper.webp) center / 100% 100% no-repeat; transform: rotate(-2.5deg); }
+.lens-glass { -webkit-mask: url(assets/paper.webp) center / 100% 100% no-repeat; mask: url(assets/paper.webp) center / 100% 100% no-repeat; }
 /* ---------- Map ---------- */
 #map .scrim-top { z-index: 1; height: 190px; }
 .map-layer { position: absolute; inset: 0; z-index: 0; overflow: hidden; }
@@ -174,8 +175,7 @@ h1, h2, h3, p { margin: 0; }
 
 /* bottom area */
 .map-foot { margin-top: auto; position: relative; z-index: 6; padding-bottom: 24px; display: flex; flex-direction: column; gap: 10px; filter: drop-shadow(0 8px 14px rgba(10,40,33,.22)); }
-.paper-bg { background: #f1eee3 url(assets/paper.webp) center / 150% 260% no-repeat; }
-.map-card { margin: 0 var(--m); display: flex; flex-direction: column; gap: 12px; padding: 20px 18px; background: #f1eee3 url(assets/paper.webp) center / 150% 260% no-repeat; color: var(--forest); animation: rise .35s ease both; }
+.map-card { margin: 0 var(--m); display: flex; flex-direction: column; gap: 12px; padding: 24px 26px; background: url(assets/paper.webp) center / 100% 100% no-repeat; color: var(--forest); animation: rise .35s ease both; }
 .map-card-row { display: flex; align-items: center; gap: 12px; }
 .map-card-row > div { flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 2px; }
 .map-card .eyebrow { color: var(--pine); }
@@ -205,7 +205,7 @@ h1, h2, h3, p { margin: 0; }
 .disc .progress i.done { background: var(--cream); }
 .carousel { display: flex; gap: 12px; overflow-x: auto; scroll-snap-type: x mandatory; scroll-padding-inline: var(--m); padding: 4px var(--m) 8px; scrollbar-width: none; }
 .carousel::-webkit-scrollbar { display: none; }
-.icard { flex: 0 0 82%; scroll-snap-align: start; display: flex; flex-direction: column; gap: 8px; padding: 22px 18px; border-radius: 0; background: #f1eee3 url(assets/paper.webp) center / 150% 220% no-repeat; color: var(--ink); text-align: left; transition: opacity .3s, transform .3s; }
+.icard { flex: 0 0 82%; scroll-snap-align: start; display: flex; flex-direction: column; gap: 8px; padding: 26px 24px; border-radius: 0; background: url(assets/paper.webp) center / 100% 100% no-repeat; color: var(--ink); text-align: left; transition: opacity .3s, transform .3s; }
 .icard:last-child { margin-right: var(--m); }
 .icard:not(.cur) { opacity: .65; transform: scale(.97); }
 .icard .cat { display: flex; align-items: center; gap: 8px; }
@@ -630,19 +630,6 @@ const $$ = (s, r = document) => [...r.querySelectorAll(s)];
 const sleep = ms => new Promise(r => setTimeout(r, ms));
 const app = $('#app');
 
-/* torn paper edges: a jagged clip-path along the top and/or bottom */
-function tear(el, { seed = 1, top = true, bottom = true, left = false, right = false, amp = 6, steps = 30 } = {}) {
-  let x = seed * 9973 % 2147483647 || 1;
-  const rnd = () => (x = x * 16807 % 2147483647) / 2147483647;
-  const j = on => on ? (rnd() * amp).toFixed(1) : 0;
-  const p = v => (v * 100).toFixed(2) + '%';
-  const pts = [];
-  for (let i = 0; i <= steps; i++) pts.push(`${p(i / steps)} ${j(top)}px`);
-  for (let i = 1; i < steps; i++) pts.push(`calc(100% - ${j(right)}px) ${p(i / steps)}`);
-  for (let i = steps; i >= 0; i--) pts.push(`${p(i / steps)} calc(100% - ${j(bottom)}px)`);
-  for (let i = steps - 1; i > 0; i--) pts.push(`${j(left)}px ${p(i / steps)}`);
-  el.style.clipPath = `polygon(${pts.join(',')})`;
-}
 
 /* ---------- Content ---------- */
 const SPOTS = [
@@ -822,7 +809,6 @@ function renderSoundFoot() {
     foot.innerHTML = `<div class="map-card">
       <div class="map-card-row"><div><span class="eyebrow">Sound map</span><b>Tap a circle to listen</b></div>
       <button class="mini ghost" id="mcWrite"><svg><use href="#i-pen"/></svg>Write</button></div></div>`;
-    tear(foot.firstChild, { seed: 3 });
     $('#mcWrite').onclick = () => writeFree('map');
     return;
   }
@@ -833,7 +819,6 @@ function renderSoundFoot() {
       <button class="mini" id="pvGo">Listen<svg><use href="#i-next"/></svg></button>
     </div></div>`;
   foot.querySelector('b').textContent = selSpot.soundName;
-  tear(foot.firstChild, { seed: 5 });
   $('#pvPlay').onclick = () => setPreview(!previewing);
   $('#pvGo').onclick = () => goListen(selSpot);
 }
@@ -864,7 +849,6 @@ function renderInfoFoot() {
     c.querySelector('h3').textContent = it.q; c.querySelector('p').textContent = it.a;
     c.onclick = () => selectInfo(i, true);
     carousel.append(c);
-    tear(c, { seed: 11 + i });
   });
   carousel.addEventListener('scroll', () => {
     clearTimeout(scrollT);
@@ -1351,8 +1335,6 @@ const store = (() => {
   $('#sunsetTime').textContent = set.toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit', timeZone: 'America/New_York' });
 })();
 $('#today').textContent = new Date().toLocaleDateString('en-US', { weekday: 'long', month: 'long', day: 'numeric' });
-tear($('#lensGlass'), { seed: 7, left: true, right: true, amp: 9, steps: 22 });
-tear($('#lensPaper'), { seed: 19, left: true, right: true, amp: 7, steps: 22 });
 $('#accountBtn').onclick = () => toast('Your account page is coming soon');
 $('#settingsBtn').onclick = () => toast('Settings are coming soon');
 app.dataset.tone = 'dark';app.dataset.tone = 'dark';
