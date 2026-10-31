@@ -6,7 +6,7 @@ By Christine Seong, Lauren Hong and Jeewoo Kim.
 
 ## What's in it
 - **Home**: greeting, weather widget, and a round lens that slowly roams over the park map.
-- **Sound map**: tap a spot to preview its sound in place, then zoom in to listen.
+- **Sound map**: five spots around the park. Tap one to preview its sound in place, then zoom in to listen.
 - **Info map**: swipe through short stories about the park; markers follow the cards.
 - **Listening**: rhetorical questions float over the scene; reply in a DM-style bar.
 - **Reflection**: write (handwritten or sans serif) or draw on torn paper over a photo of where you are.
@@ -19,4 +19,5 @@ Open `index.html` in a browser. It's a single page with no build step.
 - The weather widget shows sample data.
 - Park sounds are generated in the browser with the Web Audio API, not recordings.
 - Letters are saved in your browser (localStorage) when opened outside claude.ai.
+- Fonts: Epilogue (sans serif) and Adobe Handwriting Tiffany (handwritten). Tiffany loads from an Adobe Fonts web project (kit `xxp6irg`) that allows `christine-seong.github.io` and `localhost`; elsewhere it falls back to Mynerve.
 - Neulis Neue isn't on Google Fonts, so Lexend stands in for it.
