@@ -1,7 +1,7 @@
 <title>Marshmallows</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lexend:wght@300;400;500;600&family=Epilogue:wght@300..700&family=Mynerve&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Epilogue:wght@300..700&family=Mynerve&display=swap">
 <link rel="stylesheet" href="https://use.typekit.net/xxp6irg.css">
 <style>
 /* Layout: phone app shell. Every screen = header (56px) / content / bottom dock, 20px side margins, left-aligned text, 8px spacing grid. Single committed park look. */
@@ -18,7 +18,7 @@
   --env-back: #e3e8d6;
   --env-front: #f2f3ea;
   --env-flap: #d6e2c8;
-  --display: "Lexend", "Neulis Neue", "Avenir Next", system-ui, sans-serif; /* stand-in for Neulis Neue */
+  --display: "Epilogue", "Avenir Next", system-ui, sans-serif;
   --sans: "Epilogue", "Avenir Next", system-ui, sans-serif;
   --hand: "adobe-handwriting-tiffany", "Mynerve", "Bradley Hand", cursive; /* Adobe Fonts kit xxp6irg */
   --m: 24px;          /* side margin */
@@ -63,6 +63,7 @@ h1, h2, h3, p { margin: 0; }
 .nav-title { flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 2px; }
 .nav-title .t-title { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 .nav.dark { color: var(--forest); }
+.t-hand { font-family: var(--hand); font-weight: 400; font-size: 24px; }
 .nav-btn { flex: none; width: 44px; height: 44px; border-radius: 50%; display: grid; place-items: center; color: inherit; transition: background .2s; }
 .nav-btn:active { background: rgba(255,255,255,.18); }
 .nav-btn svg { width: 24px; height: 24px; }
@@ -78,68 +79,29 @@ h1, h2, h3, p { margin: 0; }
 .btn.ghost { background: rgba(25,71,63,.08); color: var(--forest); }
 
 /* ---------- Home ---------- */
-#home { color: var(--forest); overflow: hidden; background: var(--sage) url(assets/home-bg.jpg) center / cover no-repeat; }
-#home::before { content: ""; position: absolute; inset: 0; background: linear-gradient(180deg, rgba(249,249,245,.55) 0%, rgba(249,249,245,.15) 38%, rgba(249,249,245,0) 60%); pointer-events: none; }
-.puffs { position: absolute; inset: 0; z-index: 0; pointer-events: none; }
-.puffs i { position: absolute; border-radius: 50%; background: radial-gradient(circle at 40% 35%, #fff, rgba(255,255,255,0) 68%); filter: blur(6px); animation: puff var(--d, 38s) ease-in-out infinite alternate; }
-@keyframes puff { from { transform: translate(0, 0) scale(1); } to { transform: translate(var(--x, 30px), var(--y, -20px)) scale(1.08); } }
-#home .home-top, #home .home-main { position: relative; z-index: 1; }
+/* cream page on top, a torn-off photo of the park underneath */
+#home { color: var(--forest); background: #f3f1e9; padding-bottom: 0; }
 .home-top { flex: none; height: 56px; margin-top: 12px; padding: 0 var(--m); display: flex; align-items: center; justify-content: space-between; }
-.avatar { width: 36px; height: 36px; border-radius: 50%; overflow: hidden; background: var(--env-flap); color: var(--pine); display: block; transition: transform .15s; }
-.avatar svg { display: block; width: 36px; height: 36px; }
-.avatar:active, .gear:active { transform: scale(.94); }
-.gear { width: 44px; height: 44px; margin-right: -11px; border-radius: 50%; display: grid; place-items: center; color: var(--ink-2); transition: transform .15s; }
-.gear svg { width: 21px; height: 21px; }
-/* rhythm: greeting + weather sit close as one group (16), groups are 2x apart (32); spare height goes mostly to the card, the rest splits evenly above and below */
-.home-main { flex: 1; min-height: 0; display: flex; flex-direction: column; padding: 0 var(--m) 8px; }
-.sp { flex: 1 1 24px; }
-.sp.end { flex-basis: 32px; flex-grow: 1.3; }
-.gap-s { flex: none; height: 16px; }
-.gap-l { flex: none; height: 32px; }
-.greet { display: flex; flex-direction: column; gap: 4px; }
-.greet .date { font-size: 13px; color: var(--ink-2); opacity: .8; }
-.hello { font-family: var(--display); font-weight: 500; font-size: 34px; line-height: 1.15; letter-spacing: -.01em; text-wrap: balance; }
-
-/* weather */
-.weather { flex: none; display: flex; justify-content: space-between; align-items: center; gap: 12px; padding: 14px 18px; border-radius: 22px; color: var(--forest);
-  background: rgba(255,255,255,.45); border: 1px solid rgba(255,255,255,.75); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); }
-.w-now { display: flex; flex-direction: column; gap: 8px; min-width: 0; }
-.w-temp { display: flex; align-items: center; gap: 8px; font-family: var(--display); font-weight: 400; font-size: 24px; line-height: 1; }
-.w-temp svg { width: 26px; height: 26px; color: var(--pine); }
-.w-stats { display: grid; grid-template-columns: auto auto; gap: 4px 12px; font-size: 12px; color: var(--ink-2); }
-.w-stats span { display: inline-flex; align-items: center; gap: 5px; white-space: nowrap; }
-.w-stats svg { width: 13px; height: 13px; }
-.w-days { display: grid; grid-template-columns: repeat(4, 34px); gap: 4px; text-align: center; }
-.w-day { display: flex; flex-direction: column; align-items: center; gap: 5px; font-size: 11px; color: var(--ink-2); }
-.w-day b { font-weight: 600; font-size: 10px; letter-spacing: .06em; }
-.w-day svg { width: 20px; height: 20px; color: var(--pine); }
-.w-day span { display: flex; flex-direction: column; gap: 2px; font-variant-numeric: tabular-nums; line-height: 1.1; }
-.w-day span i { font-style: normal; opacity: .65; }
-
-/* the park through a slow-moving lens */
-.invite { flex: none; display: flex; flex-direction: column; align-items: center; gap: 24px; padding-top: 28px; text-align: center; }
-.lens { position: relative; width: min(68cqw, 280px); aspect-ratio: 1; }
-.lens-glass { position: absolute; inset: 0; border-radius: 50%; overflow: hidden; isolation: isolate; box-shadow: 0 0 0 8px rgba(255,255,255,.55), 0 24px 50px rgba(25,71,63,.16); }
-.feel-map { position: absolute; z-index: -1; left: 0; top: 0; width: 220%; height: 220%; background: url(assets/birdseye.jpg) center / cover; animation: roam 40s ease-in-out infinite; will-change: transform; }
-.lens-glass::after { content: ""; position: absolute; inset: 0; border-radius: 50%; background: radial-gradient(circle at 35% 30%, rgba(255,255,255,.22), rgba(255,255,255,0) 45%), radial-gradient(circle, rgba(12,36,30,0) 60%, rgba(12,36,30,.18)); }
-.lens::before { content: ""; position: absolute; inset: -14px; border-radius: 50%; border: 1px solid rgba(27,97,81,.18); animation: breathe 8s ease-in-out infinite; }
-.lens::after { content: ""; position: absolute; inset: -28px; border-radius: 50%; border: 1px solid rgba(27,97,81,.09); animation: breathe 8s ease-in-out -1.2s infinite; }
-@keyframes breathe { 0%, 100% { transform: scale(.97); opacity: .6; } 50% { transform: scale(1.03); opacity: 1; } }
-.invite h2 { margin-top: 20px; font-family: var(--display); font-weight: 400; font-size: 24px; line-height: 1.25; color: var(--forest); text-wrap: balance; }
-.invite .btn { width: auto; height: 48px; padding: 0 44px; border-radius: 999px; font-size: 15px; background: var(--forest); color: var(--cream); box-shadow: 0 10px 24px rgba(25,71,63,.22); }
-@keyframes roam {
-  0%   { transform: translate(-10%, -6%); }
-  20%  { transform: translate(-50%, -14%); }
-  40%  { transform: translate(-52%, -48%); }
-  60%  { transform: translate(-22%, -54%); }
-  80%  { transform: translate(-6%, -32%); }
-  100% { transform: translate(-10%, -6%); }
-}
+.avatar, .menu-sq { width: 40px; height: 40px; display: grid; place-items: center; color: var(--forest); border-radius: 10px; transition: transform .15s, background .2s; }
+.avatar { margin-left: -8px; }
+.menu-sq { background: rgba(25,71,63,.08); }
+.avatar svg, .menu-sq svg { width: 22px; height: 22px; }
+.avatar:active, .menu-sq:active { transform: scale(.94); }
+.home-head { flex: none; padding: 36px var(--m) 0; display: flex; flex-direction: column; }
+.hello { font-family: var(--hand); font-size: 30px; line-height: 1.1; color: var(--pine); }
+.feel-q { margin-top: 10px; font-family: var(--display); font-weight: 600; font-size: 36px; line-height: 1.12; letter-spacing: -.01em; max-width: 11ch; color: var(--forest); }
+.wx { margin-top: 40px; display: flex; gap: 36px; font-family: var(--display); font-size: 18px; color: var(--forest); }
+.wx span { display: inline-flex; align-items: center; gap: 10px; }
+.wx svg { width: 34px; height: 34px; }
+.home-photo { flex: 1 1 auto; min-height: 240px; max-height: 46%; margin-top: auto; position: relative; background: var(--pine) url(assets/forest.jpg) center / cover no-repeat; }
+.home-photo::before { content: ""; position: absolute; inset: 0; background: linear-gradient(180deg, rgba(0,0,0,.08), rgba(0,0,0,0) 30%); }
+.walk { position: absolute; left: 50%; bottom: calc(56px + var(--hb)); transform: translateX(-50%); padding: 14px 26px; background: #f1efe6; color: var(--forest); font-family: var(--display); font-size: 16px; font-weight: 500; border-radius: 3px; box-shadow: 0 6px 18px rgba(0,0,0,.18); white-space: nowrap; transition: transform .15s; }
+.walk:active { transform: translateX(-50%) scale(.97); }
 
 /* ---------- Map ---------- */
 #map .scrim-top { z-index: 1; height: 190px; }
 .map-layer { position: absolute; inset: 0; z-index: 0; overflow: hidden; }
-.map-layer .bg { z-index: 0; background-image: url(assets/birdseye.jpg); }
+.map-layer .bg { z-index: 0; background-image: url(assets/map-bg.jpg); }
 .spotlight { position: absolute; inset: 0; z-index: 1; pointer-events: none; opacity: 0; transition: opacity .45s; background: radial-gradient(circle at var(--sx, 50%) var(--sy, 50%), rgba(12,36,30,0) 0 56px, rgba(12,36,30,.5) 150px); }
 .map-layer.focus .spotlight { opacity: 1; }
 .spots { position: absolute; inset: 0; z-index: 2; }
@@ -163,8 +125,9 @@ h1, h2, h3, p { margin: 0; }
 .node.sel .tag { opacity: 1; transform: translate(-50%, 0); }
 
 /* bottom area */
-.map-foot { margin-top: auto; position: relative; z-index: 6; padding-bottom: 24px; display: flex; flex-direction: column; gap: 10px; }
-.map-card { margin: 0 var(--m); display: flex; flex-direction: column; gap: 12px; padding: 16px 18px; border-radius: 22px; background: rgba(249,249,245,.95); backdrop-filter: blur(12px); box-shadow: var(--shadow); color: var(--forest); animation: rise .35s ease both; }
+.map-foot { margin-top: auto; position: relative; z-index: 6; padding-bottom: 24px; display: flex; flex-direction: column; gap: 10px; filter: drop-shadow(0 8px 14px rgba(10,40,33,.22)); }
+.paper-bg { background: #f1eee3 url(assets/paper.webp) center / 150% 260% no-repeat; }
+.map-card { margin: 0 var(--m); display: flex; flex-direction: column; gap: 12px; padding: 20px 18px; background: #f1eee3 url(assets/paper.webp) center / 150% 260% no-repeat; color: var(--forest); animation: rise .35s ease both; }
 .map-card-row { display: flex; align-items: center; gap: 12px; }
 .map-card-row > div { flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 2px; }
 .map-card .eyebrow { color: var(--pine); }
@@ -194,7 +157,7 @@ h1, h2, h3, p { margin: 0; }
 .disc .progress i.done { background: var(--cream); }
 .carousel { display: flex; gap: 12px; overflow-x: auto; scroll-snap-type: x mandatory; scroll-padding-inline: var(--m); padding: 4px var(--m) 8px; scrollbar-width: none; }
 .carousel::-webkit-scrollbar { display: none; }
-.icard { flex: 0 0 82%; scroll-snap-align: start; display: flex; flex-direction: column; gap: 8px; padding: 18px; border-radius: 22px; background: rgba(249,249,245,.96); box-shadow: var(--shadow); color: var(--ink); text-align: left; transition: opacity .3s, transform .3s; }
+.icard { flex: 0 0 82%; scroll-snap-align: start; display: flex; flex-direction: column; gap: 8px; padding: 22px 18px; border-radius: 0; background: #f1eee3 url(assets/paper.webp) center / 150% 220% no-repeat; color: var(--ink); text-align: left; transition: opacity .3s, transform .3s; }
 .icard:last-child { margin-right: var(--m); }
 .icard:not(.cur) { opacity: .65; transform: scale(.97); }
 .icard .cat { display: flex; align-items: center; gap: 8px; }
@@ -244,7 +207,7 @@ h1, h2, h3, p { margin: 0; }
 #sound .bg { background-image: url(assets/listen-bg.jpg); }
 #sound .tint { position: absolute; inset: 0; z-index: -1; transition: background .6s; }
 .questions { flex: 1; position: relative; min-height: 0; }
-.fq { position: absolute; left: var(--x); top: var(--y); max-width: var(--w, 58%); text-align: left; color: var(--cream); font-family: var(--display); font-weight: 400; font-size: 19px; line-height: 1.35; text-shadow: 0 1px 8px rgba(0,0,0,.25); opacity: .78; transition: opacity .3s; animation: float var(--d, 14s) ease-in-out var(--delay, 0s) infinite; }
+.fq { position: absolute; left: var(--x); top: var(--y); max-width: var(--w, 58%); text-align: left; color: var(--cream); font-family: var(--hand); font-weight: 400; font-size: 21px; line-height: 1.35; text-shadow: 0 1px 8px rgba(0,0,0,.25); opacity: .78; transition: opacity .3s; animation: float var(--d, 14s) ease-in-out var(--delay, 0s) infinite; }
 .fq:hover, .fq.picked { opacity: 1; text-decoration: underline; text-decoration-thickness: 1px; text-underline-offset: 6px; }
 .questions.has-pick .fq:not(.picked) { opacity: .4; }
 
@@ -335,7 +298,8 @@ h1, h2, h3, p { margin: 0; }
 .fold-top .back .shade { background: linear-gradient(180deg, rgba(20,45,35,.3), rgba(20,45,35,0)); opacity: 1; }
 
 /* ---------- Archive ---------- */
-#archive { background: linear-gradient(180deg, var(--sky) 0%, #c9dcd9 50%, #d7e5c9 80%, var(--sage) 100%); }
+#archive { background: linear-gradient(180deg, rgba(243,241,233,.72) 0%, rgba(243,241,233,.38) 45%, rgba(243,241,233,.12) 100%), var(--sage) url(assets/letters-bg.jpg) center / cover no-repeat; }
+#archive .empty .t-body { color: var(--forest); }
 #archive .cloud { position: absolute; background: rgba(255,255,255,.5); border-radius: 999px; filter: blur(8px); animation: drift 30s linear infinite alternate; z-index: -1; }
 .arch-sub { flex: none; padding: 4px var(--m) 8px; color: var(--ink-2); font-size: 13px; }
 .sky { flex: 1; min-height: 0; overflow-y: auto; padding: 28px var(--m) 64px; }
@@ -408,6 +372,9 @@ h1, h2, h3, p { margin: 0; }
     <symbol id="w-wind" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" d="M3 9h11a2.5 2.5 0 1 0-2.5-2.5M3 13h15a2.5 2.5 0 1 1-2.5 2.5M3 17h7"/></symbol>
     <symbol id="w-drop" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round" d="M12 3.5s6 6.4 6 10.5a6 6 0 0 1-12 0c0-4.1 6-10.5 6-10.5Z"/></symbol>
     <symbol id="w-umb" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" d="M3 12a9 9 0 0 1 18 0zM12 12v6.5a2 2 0 0 1-4 0M12 3v0"/></symbol>
+    <symbol id="i-user-o" viewBox="0 0 24 24"><circle cx="12" cy="8.2" r="3.6" fill="none" stroke="currentColor" stroke-width="1.5"/><path fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" d="M5 20c.8-3.6 3.6-5.6 7-5.6s6.2 2 7 5.6"/></symbol>
+    <symbol id="w-pcloud-o" viewBox="0 0 36 36"><path fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" d="M21 5v2.4M28.6 8.2l-1.7 1.7M31.8 15.8h-2.4"/><path fill="none" stroke="currentColor" stroke-width="1.3" d="M17.6 14.4a5.6 5.6 0 0 1 10 4.2"/><path fill="none" stroke="currentColor" stroke-width="1.3" stroke-linejoin="round" d="M9.5 29h15.8a4.6 4.6 0 0 0 .4-9.2 7 7 0 0 0-13.4-1.3A5.3 5.3 0 0 0 9.5 29Z"/></symbol>
+    <symbol id="w-sunset" viewBox="0 0 36 36"><path fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" d="M3 24h30M10 24a8 8 0 0 1 16 0M18 8.5v3M8.5 12.6l2 2M27.5 12.6l-2 2M4.5 19h2.6M29 19h2.6M12 28.5h12"/></symbol>
     <symbol id="i-x" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" d="M6 6l12 12M18 6 6 18"/></symbol>
     <symbol id="i-send" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" d="M12 19V5m-6 6 6-6 6 6"/></symbol>
     <symbol id="i-cam" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round" d="M4 8h3l1.6-2.5h6.8L17 8h3v11H4z"/><circle cx="12" cy="13" r="3.4" fill="none" stroke="currentColor" stroke-width="1.7"/></symbol>
@@ -426,35 +393,19 @@ h1, h2, h3, p { margin: 0; }
   <!-- Home -->
   <section class="screen on" id="home" aria-label="Home">
     <div class="home-top">
-      <button class="avatar" id="accountBtn" aria-label="Your account"><svg><use href="#i-user"/></svg></button>
-      <button class="gear" id="settingsBtn" aria-label="Settings"><svg><use href="#i-gear"/></svg></button>
+      <button class="avatar" id="accountBtn" aria-label="Your account"><svg><use href="#i-user-o"/></svg></button>
+      <button class="menu-sq" data-menu aria-label="Open menu"><svg><use href="#i-menu"/></svg></button>
     </div>
-    <div class="home-main">
-      <i class="sp"></i>
-      <div class="greet">
-        <span class="date" id="today"></span>
-        <h1 class="hello" id="hello">Hi there!</h1>
+    <div class="home-head">
+      <p class="hello" id="hello">Hi there!</p>
+      <h1 class="feel-q">How do you feel today?</h1>
+      <div class="wx" aria-label="Weather at Prospect Terrace Park">
+        <span><svg><use href="#w-pcloud-o"/></svg>48°F</span>
+        <span><svg><use href="#w-sunset"/></svg><span id="sunsetTime">5:40 PM</span></span>
       </div>
-      <i class="gap-s"></i>
-      <div class="weather" aria-label="Weather at Prospect Terrace Park">
-        <div class="w-now">
-          <div class="w-temp"><svg><use href="#w-pcloud"/></svg>48°</div>
-          <div class="w-stats">
-            <span><svg><use href="#w-air"/></svg>Air good</span>
-            <span><svg><use href="#w-wind"/></svg>Calm</span>
-            <span><svg><use href="#w-drop"/></svg>84%</span>
-            <span><svg><use href="#w-umb"/></svg>30%</span>
-          </div>
-        </div>
-        <div class="w-days" id="wDays"></div>
-      </div>
-      <i class="sp"></i>
-      <div class="invite">
-        <div class="lens"><div class="lens-glass"><div class="feel-map" aria-hidden="true"></div></div></div>
-        <h2>How do you feel today?</h2>
-        <button class="btn" id="startBtn">Start walking</button>
-      </div>
-      <i class="sp end"></i>
+    </div>
+    <div class="home-photo" id="homePhoto">
+      <button class="walk" id="startBtn">Start Walking</button>
     </div>
   </section>
 
@@ -468,7 +419,7 @@ h1, h2, h3, p { margin: 0; }
     <div class="scrim-top"></div>
     <header class="nav">
       <button class="nav-btn" id="mapHome" aria-label="Back to start"><svg><use href="#i-back"/></svg></button>
-      <div class="nav-title"><span class="t-title">Prospect Terrace Park</span></div>
+      <div class="nav-title"><span class="t-title t-hand">Prospect Terrace Park</span></div>
       <button class="nav-btn fill" data-menu aria-label="Open menu"><svg><use href="#i-menu"/></svg></button>
     </header>
     <div class="tabs" role="tablist" aria-label="Map type">
@@ -548,9 +499,6 @@ h1, h2, h3, p { margin: 0; }
 
   <!-- Archive -->
   <section class="screen" id="archive" aria-label="Your letters">
-    <div class="cloud" style="width:200px;height:60px;left:-30px;top:20%"></div>
-    <div class="cloud" style="width:160px;height:50px;right:-20px;top:44%;animation-duration:40s"></div>
-    <div class="cloud" style="width:240px;height:70px;left:20%;top:76%;animation-duration:34s"></div>
     <header class="nav dark">
       <button class="nav-btn" id="archBack" aria-label="Back to map"><svg><use href="#i-back"/></svg></button>
       <div class="nav-title"><span class="eyebrow">Your thoughts</span><span class="t-title">Letters</span></div>
@@ -625,6 +573,16 @@ const $ = (s, r = document) => r.querySelector(s);
 const $$ = (s, r = document) => [...r.querySelectorAll(s)];
 const sleep = ms => new Promise(r => setTimeout(r, ms));
 const app = $('#app');
+
+/* torn paper edges: a jagged clip-path along the top and/or bottom */
+function tear(el, { seed = 1, top = true, bottom = true, amp = 6, steps = 30 } = {}) {
+  let x = seed * 9973 % 2147483647 || 1;
+  const rnd = () => (x = x * 16807 % 2147483647) / 2147483647;
+  const pts = [];
+  for (let i = 0; i <= steps; i++) pts.push(`${(i / steps * 100).toFixed(2)}% ${top ? (rnd() * amp).toFixed(1) : 0}px`);
+  for (let i = steps; i >= 0; i--) pts.push(`${(i / steps * 100).toFixed(2)}% ${bottom ? `calc(100% - ${(rnd() * amp).toFixed(1)}px)` : '100%'}`);
+  el.style.clipPath = `polygon(${pts.join(',')})`;
+}
 
 /* ---------- Content ---------- */
 const SPOTS = [
@@ -804,16 +762,18 @@ function renderSoundFoot() {
     foot.innerHTML = `<div class="map-card">
       <div class="map-card-row"><div><span class="eyebrow">Sound map</span><b>Tap a circle to listen</b></div>
       <button class="mini ghost" id="mcWrite"><svg><use href="#i-pen"/></svg>Write</button></div></div>`;
+    tear(foot.firstChild, { seed: 3 });
     $('#mcWrite').onclick = () => writeFree('map');
     return;
   }
   foot.innerHTML = `<div class="map-card${previewing ? ' on' : ''}">
     <div class="map-card-row">
       <button class="pplay" id="pvPlay" aria-label="${previewing ? 'Pause preview' : 'Play preview'}"><svg><use href="#i-${previewing ? 'pause' : 'play'}"/></svg></button>
-      <div><b></b><span class="sub pv"><span class="bars" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i></span>${previewing ? 'Previewing' : 'Paused'}</span></div>
+      <div><b></b></div>
       <button class="mini" id="pvGo">Listen<svg><use href="#i-next"/></svg></button>
     </div></div>`;
   foot.querySelector('b').textContent = selSpot.soundName;
+  tear(foot.firstChild, { seed: 5 });
   $('#pvPlay').onclick = () => setPreview(!previewing);
   $('#pvGo').onclick = () => goListen(selSpot);
 }
@@ -844,6 +804,7 @@ function renderInfoFoot() {
     c.querySelector('h3').textContent = it.q; c.querySelector('p').textContent = it.a;
     c.onclick = () => selectInfo(i, true);
     carousel.append(c);
+    tear(c, { seed: 11 + i });
   });
   carousel.addEventListener('scroll', () => {
     clearTimeout(scrollT);
@@ -1305,34 +1266,33 @@ const store = (() => {
   return api;
 })();
 
-/* ---------- Home: greeting + weather ---------- */
+/* ---------- Home: greeting, sunset, torn photo ---------- */
 (async () => {
   try {
     const user = window.claude && window.claude.use ? await window.claude.use('user') : null;
     const me = user ? await user.me() : null;
     const raw = me && me.name ? me.name.trim().split(/\s+/)[0] : '';
     const first = raw ? raw.charAt(0).toUpperCase() + raw.slice(1) : '';
-    if (first) $('#hello').textContent = `Hi, ${first}!`;
+    if (first) $('#hello').textContent = `Hi ${first}!`;
   } catch (e) {}
 })();
+// today's sunset at Prospect Terrace Park (41.83 N, 71.40 W), standard sunrise equation
 (() => {
-  // sample forecast for the widget's look; not live data
-  const days = [['w-fog', 41, 30], ['w-pcloud', 45, 34], ['w-sun', 49, 36], ['w-sun', 52, 38]];
-  const box = $('#wDays'), today = new Date();
-  days.forEach(([icon, hi, lo], i) => {
-    const d = new Date(today); d.setDate(today.getDate() + i + 1);
-    const el = document.createElement('div'); el.className = 'w-day';
-    el.innerHTML = `<b></b><svg><use href="#${icon}"/></svg><span>${hi}°<i>${lo}°</i></span>`;
-    el.querySelector('b').textContent = d.toLocaleDateString('en-US', { weekday: 'short' }).toUpperCase();
-    box.append(el);
-  });
+  const rad = Math.PI / 180, lat = 41.8297, lon = -71.4053, now = new Date();
+  const jd = Date.UTC(now.getUTCFullYear(), now.getUTCMonth(), now.getUTCDate(), 12) / 864e5 + 2440587.5;
+  const n = Math.round(jd - 2451545 + 0.0008), js = n - lon / 360;
+  const M = (357.5291 + 0.98560028 * js) % 360;
+  const C = 1.9148 * Math.sin(M * rad) + 0.02 * Math.sin(2 * M * rad) + 0.0003 * Math.sin(3 * M * rad);
+  const L = (M + C + 282.9372) % 360;
+  const transit = 2451545 + js + 0.0053 * Math.sin(M * rad) - 0.0069 * Math.sin(2 * L * rad);
+  const dec = Math.asin(Math.sin(L * rad) * Math.sin(23.4397 * rad));
+  const w0 = Math.acos((Math.sin(-0.833 * rad) - Math.sin(lat * rad) * Math.sin(dec)) / (Math.cos(lat * rad) * Math.cos(dec))) / rad;
+  const set = new Date((transit + w0 / 360 - 2440587.5) * 864e5);
+  $('#sunsetTime').textContent = set.toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit', timeZone: 'America/New_York' });
 })();
-{
-  $('#today').textContent = new Date().toLocaleDateString('en-US', { weekday: 'long', month: 'long', day: 'numeric' });
-}
+tear($('#homePhoto'), { seed: 7, bottom: false, amp: 16, steps: 26 });
 $('#accountBtn').onclick = () => toast('Your account page is coming soon');
-$('#settingsBtn').onclick = () => toast('Settings are coming soon');
-app.dataset.tone = 'dark';
+app.dataset.tone = 'dark';app.dataset.tone = 'dark';
 
 updateCounts();
 })();

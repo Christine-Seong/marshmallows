@@ -19,5 +19,4 @@ Open `index.html` in a browser. It's a single page with no build step.
 - The weather widget shows sample data.
 - Park sounds are generated in the browser with the Web Audio API, not recordings.
 - Letters are saved in your browser (localStorage) when opened outside claude.ai.
-- Fonts: Epilogue (sans serif) and Adobe Handwriting Tiffany (handwritten). Tiffany loads from an Adobe Fonts web project (kit `xxp6irg`) that allows `christine-seong.github.io` and `localhost`; elsewhere it falls back to Mynerve.
-- Neulis Neue isn't on Google Fonts, so Lexend stands in for it.
+- Fonts: Epilogue for all sans serif text and Adobe Handwriting Tiffany for handwritten text. Tiffany loads from an Adobe Fonts web project (kit `xxp6irg`) that allows `christine-seong.github.io` and `localhost`; elsewhere it falls back to Mynerve.
