@@ -46,7 +46,8 @@ h1, h2, h3, p { margin: 0; }
 
 .app { position: relative; width: min(100%, 430px); height: min(100%, 900px); overflow: hidden; background: var(--pine); isolation: isolate; container-type: size; }
 @media (min-width: 560px) and (min-height: 700px) {
-  .app { border-radius: 44px; box-shadow: 0 30px 80px rgba(0,0,0,.35), 0 0 0 10px #0f2d27; height: min(calc(100% - 48px), 874px); --sb: 50px; --hb: 16px; }
+  /* on wide screens the phone frame is a fixed 430x874 and fitFrame() zooms it to fill the window */
+  .app { border-radius: 44px; box-shadow: 0 30px 80px rgba(0,0,0,.35), 0 0 0 10px #0f2d27; width: 430px; height: 874px; --sb: 50px; --hb: 16px; }
   .app .statusbar, .app .homebar { display: flex; }
 }
 :where(.app) { --sb: 0px; --hb: 0px; }
@@ -641,6 +642,15 @@ const $$ = (s, r = document) => [...r.querySelectorAll(s)];
 const sleep = ms => new Promise(r => setTimeout(r, ms));
 const app = $('#app');
 
+/* scale the phone frame to the window on tablets and computers */
+const FRAMED = matchMedia('(min-width: 560px) and (min-height: 700px)');
+function fitFrame() {
+  app.style.zoom = FRAMED.matches ? Math.min((innerHeight - 40) / 874, (innerWidth - 40) / 430).toFixed(3) : '';
+}
+fitFrame();
+addEventListener('resize', fitFrame);
+const zoomOf = () => parseFloat(app.style.zoom) || 1;
+
 
 /* ---------- Content ---------- */
 const SPOTS = [
@@ -1165,7 +1175,7 @@ $('#uploadBtn').onclick = async () => {
 async function foldAnimation() {
   $('#reflect').classList.add('sending');
   const box = $('#paperBox'), pr = paper.getBoundingClientRect(), ar = app.getBoundingClientRect();
-  const w = pr.width, h = pr.height, x0 = pr.left - ar.left, y0 = pr.top - ar.top;
+  const Z = zoomOf(), w = pr.width / Z, h = pr.height / Z, x0 = (pr.left - ar.left) / Z, y0 = (pr.top - ar.top) / Z;
   const ease = (el, frames, ms, curve = 'cubic-bezier(.45,0,.2,1)') => el.animate(frames, { duration: ms, easing: curve, fill: 'forwards' }).finished.catch(() => {});
 
   // a still copy of the written page, split into two halves
@@ -1204,8 +1214,8 @@ async function foldAnimation() {
   letterEl.style.transition = 'none'; letterEl.style.transform = 'translateY(-72%)'; letterEl.style.visibility = 'hidden';
   fly.classList.add('show');
   await sleep(40);
-  const L = letterEl.getBoundingClientRect(), k = L.width / w;
-  const tx = L.left - ar.left - x0, ty = L.top - ar.top - y0 - k * h / 2;
+  const L = letterEl.getBoundingClientRect(), k = L.width / Z / w;
+  const tx = (L.left - ar.left) / Z - x0, ty = (L.top - ar.top) / Z - y0 - k * h / 2;
   await ease(rig, [{ transform: 'none' }, { transform: `translate(${tx}px, ${ty}px) scale(${k})` }], 700, 'cubic-bezier(.3,0,.2,1)');
 
   // 3. it slides into the pocket, the flap closes, the seal presses on
